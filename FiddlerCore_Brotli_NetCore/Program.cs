@@ -52,7 +52,16 @@ namespace FiddlerCore_DecodeBrotli_NetFramework
             {
                 var decodedBytes = oSession.responseBodyBytes.DecompressFromBrotli();
                 var text = Encoding.Default.GetString(decodedBytes);
-                Console.WriteLine("Decoded body is: " + text);
+
+                Console.WriteLine("Decoded body is: " + 
+                    ]);
+            }
+            else if (oSession.ResponseHeaders.ExistsAndContains("Report-To", "fastly-insights.com") && oSession.responseBodyBytes.Length > 0)
+            {
+                // TO test with https://fastly-insights.com/api/v1/config/a2560724-7682-4399-af18-96914684a88a
+                var decodedBytes = oSession.responseBodyBytes;
+                var text = Encoding.Default.GetString(decodedBytes);
+                Console.WriteLine(">>>>>>>>>>>> Body is: " + text);
             }
         }
     }
